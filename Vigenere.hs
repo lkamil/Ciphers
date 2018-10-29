@@ -1,8 +1,5 @@
 import Data.Char
 
-text = "qouoevxnvhi"
-
-
 encryptChar :: Char -> Char -> Char
 encryptChar key letter
     | result > 122 = chr $ result - 26
