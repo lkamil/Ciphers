@@ -1,10 +1,21 @@
 import Data.Char
+import System.Environment
 
-encryptText :: [Char] -> [Char] -> [Char]
-encryptText key text = vigenere encryptChar key text
 
-decryptText :: [Char] -> [Char] -> [Char]
-decryptText key text = vigenere decryptChar key text
+main :: IO ()
+main = do
+    args <- getArgs
+    case args of
+        ["-e", k, t] -> putStrLn $ encrypt k t
+        ["-d", k, t] -> putStrLn $ decrypt k t
+        []           -> putStrLn "usage: [-e | -d] key text"
+
+
+encrypt :: [Char] -> [Char] -> [Char]
+encrypt key text = vigenere encryptChar key text
+
+decrypt :: [Char] -> [Char] -> [Char]
+decrypt key text = vigenere decryptChar key text
 
 vigenere :: (Char -> Char -> Char) -> [Char] -> [Char] -> [Char] 
 vigenere direction key [] = []
