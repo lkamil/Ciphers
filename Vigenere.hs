@@ -8,8 +8,7 @@ decryptText key text = vigenere decryptChar key text
 
 vigenere :: (Char -> Char -> Char) -> [Char] -> [Char] -> [Char] 
 vigenere direction key [] = []
-vigenere direction key text = direction (head $ cycle key) (head $ map toLower text) : (vigenere direction (drop 1 key') (drop 1 text))
-    where key' = cycle key
+vigenere direction key text = zipWith direction (cycle key) text
 
 encryptChar :: Char -> Char -> Char
 encryptChar key letter
