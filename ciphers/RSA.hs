@@ -1,15 +1,15 @@
 import System.Random
 import Data.List
 
-primes :: [Int]
-primes = primesH [x | x <- [2..100], mod x 2 /= 0]
+primeGen :: [Int]
+primeGen = primeGenH [x | x <- [2..100], mod x 2 /= 0]
 
-primesH :: Integral a => [a] -> [a]
-primesH [] = []
-primesH (x:xs) = x : (primesH $ filter (\y -> mod y x /= 0) xs)
+primeGenH :: Integral a => [a] -> [a]
+primeGenH [] = []
+primeGenH (x:xs) = x : (primeGenH $ filter (\y -> mod y x /= 0) xs)
 
-randomPrime :: IO Int
+randomPrime :: [Int]
 randomPrime = 
-    let ps = primes 
-    in fmap (ps !!) $ randomRIO (0, (length ps))
+    let ps = primeGen
+    in map (ps !!) (take 3 $ (randomRs (0, (length ps)) (mkStdGen 6486478)))
 
