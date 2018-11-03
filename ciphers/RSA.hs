@@ -11,7 +11,18 @@ main = do
             r0 <- randomPrime
             r1 <- randomPrime
             r2 <- randomPrime
-            putStrLn $ show [r0, r1, r2]
+            putStrLn $ show $ publicKey [r0, r1, r2]
+
+-- encrypt gets two arguments: the public key and the message that should be enrypted
+encrypt :: Integral a => (a, a) -> a -> a 
+encrypt puk message = mod (message ^ e) n
+    where e = fst puk
+          n = snd puk
+
+decrypt :: Integral a => (a, a) -> a -> a
+decrypt prk message = mod (message ^ d) n
+    where d = fst prk
+          n = snd prk
 
 publicKey :: Integral a => [a] -> (a, a)
 publicKey [p1, p2, p3] = (p1, p2 * p3)
