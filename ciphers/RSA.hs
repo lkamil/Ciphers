@@ -1,19 +1,24 @@
 import System.Random
 import Data.List
+import System.Environment
 
--- main :: IO ()
--- main = do
---     r0 <- randomPrime
---     r1 <- randomPrime
---     r2 <- randomPrime
---     print [r0, r1, r2]
+main :: IO ()
+main = do
+    args <- getArgs
+    case args of
+        [a, b, c] -> putStrLn $ show $ publicKey $ map read [a, b, c]
+        _ -> do
+            r0 <- randomPrime
+            r1 <- randomPrime
+            r2 <- randomPrime
+            putStrLn $ show [r0, r1, r2]
 
-primes = [23, 11, 13]
+publicKey :: Integral a => [a] -> (a, a)
+publicKey [p1, p2, p3] = (p1, p2 * p3)
 
-publicKey = (primes !! 0, (primes !! 1) * (primes !! 2))
-
-privateKey = ((extractSec $ extEuclid ((head primes), m)), m)
-    where m = ((primes !! 1) - 1) * ((primes !! 2) - 1)
+privateKey :: Integral a => [a] -> (a, a)
+privateKey [p1, p2, p3] = ((extractSec $ extEuclid (p1, m)), m)
+    where m = (p2 - 1) * (p3 - 1)
 
 primeGen :: [Int]
 primeGen = primeGenH [x | x <- [2..100], mod x 2 /= 0]
