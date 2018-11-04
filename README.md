@@ -5,6 +5,6 @@ I will implement some ciphers just for fun and to learn more about Haskell and C
 - [ ] Caesar
 - [ ] Merkle–Hellman
 - [ ] One-Time-Pad
-- [ ] RSA (in progress ...)
+- [ ] RSA *(in progress ...)*
 - [x] Vigenère
 - [ ] ...
