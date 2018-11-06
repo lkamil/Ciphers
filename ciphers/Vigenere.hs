@@ -6,8 +6,8 @@ main :: IO ()
 main = do
     args <- getArgs
     case args of
-        ["-e", k, t] -> putStrLn $ encrypt k t
-        ["-d", k, t] -> putStrLn $ decrypt k t
+        ["-e", k, t] -> putStrLn $ encrypt (mToLow k) (mToLow t)
+        ["-d", k, t] -> putStrLn $ decrypt (mToLow k) (mToLow t)
         []           -> putStrLn "usage: [-e | -d] key text"
 
 
@@ -32,3 +32,6 @@ decryptChar key letter
     | result < 97 = chr $ result + 26
     | otherwise = chr result
     where result = (ord letter) + 97 - (ord key)
+
+mToLow :: [Char] -> [Char]
+mToLow text = map toLower text
